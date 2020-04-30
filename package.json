@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest --coverage && codecov",
     "dev": "nodemon src/index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -29,7 +31,8 @@
     "lodash": "^4.17.11",
     "log4js": "^4.0.2",
     "pg": "^7.7.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "snyk": "^1.316.1"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
@@ -42,5 +45,6 @@
     "eslint-plugin-import": "^2.14.0",
     "jest": "^23.6.0",
     "nodemon": "^1.18.9"
-  }
+  },
+  "snyk": true
 }
