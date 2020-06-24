@@ -8,16 +8,22 @@
       "action": "viewer"
     }
   },
-  "/ca/(.*)": {
+  "/x509/v1/ca/(.*)": {
     "subject": "ca",
+    "(.*)": {
+      "action": "modifier"
+    },
     "GET": {
       "action": "viewer"
     }
   },
-  "/sign/(.*)": {
+  "/x509/v1/certificates/(.*)": {
     "subject": "ca-sign",
-    "POST": {
+    "(.*)": {
       "action": "modifier"
+    },
+    "GET": {
+      "action": "viewer"
     }
   },
   "/device/(.*)": {
