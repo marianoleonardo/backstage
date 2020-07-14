@@ -9,7 +9,7 @@ const router = Router();
  * Create endpoint for login,
  * This end point not need a jwt token,  that is config in kong
  */
-router.use('/graphql/auth/', expressGraphQL({
+router.use('/graphql-auth/', expressGraphQL({
   schema: schemaLogin,
   graphiql: false, // graphql interface
 }));

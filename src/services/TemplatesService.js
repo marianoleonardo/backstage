@@ -1,4 +1,4 @@
-const db = require('../db');
+const { pool } = require('../db');
 
 const checkconflicts = (id, tenant) => new Promise((resolve, reject) => {
   try {
@@ -14,7 +14,7 @@ const checkconflicts = (id, tenant) => new Promise((resolve, reject) => {
       group by a.template_id, b.template_id order by a.template_id, b.template_id`;
     }
 
-    db.query(query)
+    pool.query(query)
       .then((data) => {
         const result = {};
         data.rows.forEach((item) => {

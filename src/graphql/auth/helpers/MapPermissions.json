@@ -77,12 +77,6 @@
       "action": "viewer"
     }
   },
-  "/iotagent-mqtt/metrics": {
-    "subject": "mqtt_metrics",
-    "GET": {
-      "action": "viewer"
-    }
-  },
   "/template/(.*)": {
     "subject": "template",
     "(.*)": {
@@ -99,6 +93,12 @@
     },
     "GET": {
       "action": "viewer"
+    }
+  },
+  "/graphql/(.*)": {
+    "subject": "backstage-graphql",
+    "(.*)": {
+      "action": "modifier"
     }
   }
 }

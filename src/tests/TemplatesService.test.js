@@ -1,11 +1,11 @@
 const templateService = require('../services/TemplatesService');
-const db = require('../db/index');
+const { pool } = require('../db/index');
 
 
 // eslint-disable-next-line no-undef
 test('Test the query functions', () => {
   // eslint-disable-next-line no-undef
-  db.query = jest.fn().mockResolvedValue({
+  pool.query = jest.fn().mockResolvedValue({
     rows: [{ template_id: 1, conflict: 2 },
       { template_id: 1, conflict: 3 },
       { template_id: 1, conflict: 4 },
@@ -35,7 +35,7 @@ test('Test the query functions', () => {
 
 
   // eslint-disable-next-line no-undef
-  db.query = jest.fn().mockRejectedValue({
+  pool.query = jest.fn().mockRejectedValue({
     query: 'data not found',
   });
 
@@ -48,7 +48,7 @@ test('Test the query functions', () => {
     });
 
   // eslint-disable-next-line no-undef
-  db.query = 1;
+  pool.query = 1;
 
   templateService.checkconflicts(undefined, 'admin')
     .catch((err) => {

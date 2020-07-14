@@ -4,9 +4,9 @@
   "description": "This repository is to get together all services can help GUI",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage && codecov",
-    "dev": "nodemon src/index.js",
-    "start": "node index.js"
+    "test": "jest src/tests/.*.test.js  --coverage --runInBand --collectCoverage --detectOpenHandles && codecov",
+    "dev": "node src/databaseCheck.js && nodemon src/index.js",
+    "start": "node databaseCheck.js && node index.js"
   },
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
   },
   "author": [
     "Elias Reis <efreis@cpqd.com.br>",
-    "Mariane P. @mprevide"
+    "Julia M. @juliamourac"
   ],
   "license": "GPL-3.0",
   "dependencies": {
@@ -33,10 +33,15 @@
   },
   "jest": {
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/graphql/**/*.js",
+      "src/routers/**/*.js",
+      "!src/index.js "
+    ]
   },
   "devDependencies": {
-    "codecov": "^3.1.0",
+    "codecov": "^3.7.0",
     "eslint": "^5.13.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
