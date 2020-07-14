@@ -30,6 +30,11 @@
                 Query
             </a>
         </li>
+        <li  title="Mutation">
+            <a href="mutation.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Mutation
+            </a>
+        </li>
     </ul>
 </div>
 <div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
@@ -55,6 +60,11 @@
 <div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
     <h4 class="slds-text-title--caps slds-p-around--medium">Enums</h4>
     <ul>
+        <li  title="ValueType">
+            <a href="valuetype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ValueType
+            </a>
+        </li>
         <li  title="__DirectiveLocation">
             <a href="directivelocation.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 __DirectiveLocation
@@ -70,9 +80,39 @@
 <div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
     <h4 class="slds-text-title--caps slds-p-around--medium">Objects</h4>
     <ul>
+        <li  title="Attr">
+            <a href="attr.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Attr
+            </a>
+        </li>
         <li  title="Attributes">
             <a href="attributes.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 Attributes
+            </a>
+        </li>
+        <li  title="Config">
+            <a href="config.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Config
+            </a>
+        </li>
+        <li  title="Device">
+            <a href="device.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Device
+            </a>
+        </li>
+        <li  title="DeviceListPage">
+            <a href="devicelistpage.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeviceListPage
+            </a>
+        </li>
+        <li  title="History">
+            <a href="history.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                History
+            </a>
+        </li>
+        <li  title="HistoryAttr">
+            <a href="historyattr.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                HistoryAttr
             </a>
         </li>
         <li  title="MapStringToString">
@@ -123,6 +163,36 @@
     </ul>
 </div>
 <div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Input Objects</h4>
+    <ul>
+        <li  title="ConfigInput">
+            <a href="configinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ConfigInput
+            </a>
+        </li>
+        <li  title="FilterDeviceInput">
+            <a href="filterdeviceinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FilterDeviceInput
+            </a>
+        </li>
+        <li  title="HistoryDeviceInput">
+            <a href="historydeviceinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                HistoryDeviceInput
+            </a>
+        </li>
+        <li  title="HistoryInput">
+            <a href="historyinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                HistoryInput
+            </a>
+        </li>
+        <li  title="PageInput">
+            <a href="pageinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PageInput
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
     <h4 class="slds-text-title--caps slds-p-around--medium">Directives</h4>
     <ul>
         <li  title="deprecated">
@@ -168,7 +238,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">Query</span> {</li><li></li><li><span class="tab"><span class="comment line">#   Get a template by Id</span></span></li><li><span class="tab"><span class="comment line"># </span></span></li><li><span class="tab"><span class="comment line"># Arguments</span></span></li><li><span class="tab"><span class="comment line">#   <strong>id</strong>: </span></span></li><li><span class="tab"><span class="meta">template</span>(<span class="meta">id</span>: <a class="support type" href="int.doc.html">Int</a>!): <a class="support type" href="template.doc.html">Template</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Checks if templates has Image Firmware and return a array with objects </span></span></li><li><span class="tab"><span class="comment line">#   key-value, where key is a id template and value is a boolean.</span></span></li><li><span class="tab"><span class="comment line">#   The value is true if the template has image firmware.</span></span></li><li><span class="tab"><span class="comment line"># </span></span></li><li><span class="tab"><span class="comment line"># Arguments</span></span></li><li><span class="tab"><span class="comment line">#   <strong>templatesId</strong>: </span></span></li><li><span class="tab"><span class="meta">templatesHasImageFirmware</span>(<span class="meta">templatesId</span>: [<a class="support type" href="int.doc.html">Int</a>]!): [<a class="support type" href="mapstringtostring.doc.html">MapStringToString</a>] </span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">Query</span> {</li><li></li><li><span class="tab"><span class="comment line">#   Get a template by Id</span></span></li><li><span class="tab"><span class="comment line"># </span></span></li><li><span class="tab"><span class="comment line"># Arguments</span></span></li><li><span class="tab"><span class="comment line">#   <strong>id</strong>: </span></span></li><li><span class="tab"><span class="meta">template</span>(<span class="meta">id</span>: <a class="support type" href="int.doc.html">Int</a>!): <a class="support type" href="template.doc.html">Template</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Checks if templates has Image Firmware and return a array with objects </span></span></li><li><span class="tab"><span class="comment line">#   key-value, where key is a id template and value is a boolean.</span></span></li><li><span class="tab"><span class="comment line">#   The value is true if the template has image firmware.</span></span></li><li><span class="tab"><span class="comment line"># </span></span></li><li><span class="tab"><span class="comment line"># Arguments</span></span></li><li><span class="tab"><span class="comment line">#   <strong>templatesId</strong>: </span></span></li><li><span class="tab"><span class="meta">templatesHasImageFirmware</span>(<span class="meta">templatesId</span>: [<a class="support type" href="int.doc.html">Int</a>]!): [<a class="support type" href="mapstringtostring.doc.html">MapStringToString</a>] </span></li><li></li><li><span class="tab"><span class="comment line">#   Returns a list of devices that can be divided in pages, and the information </span></span></li><li><span class="tab"><span class="comment line">#   about how many pages there are in total, along with which page is being shown</span></span></li><li><span class="tab"><span class="comment line"># </span></span></li><li><span class="tab"><span class="comment line"># Arguments</span></span></li><li><span class="tab"><span class="comment line">#   <strong>page</strong>: </span></span></li><li><span class="tab"><span class="comment line">#   <strong>filter</strong>: </span></span></li><li><span class="tab"><span class="meta">getDevices</span>(<span class="meta">page</span>: <a class="support type" href="pageinput.doc.html">PageInput</a>, <span class="meta">filter</span>: <a class="support type" href="filterdeviceinput.doc.html">FilterDeviceInput</a>): <a class="support type" href="devicelistpage.doc.html">DeviceListPage</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Finds device information by id</span></span></li><li><span class="tab"><span class="comment line"># </span></span></li><li><span class="tab"><span class="comment line"># Arguments</span></span></li><li><span class="tab"><span class="comment line">#   <strong>deviceId</strong>: </span></span></li><li><span class="tab"><span class="meta">getDeviceById</span>(<span class="meta">deviceId</span>: <a class="support type" href="string.doc.html">String</a>!): <a class="support type" href="device.doc.html">Device</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Returns historical data about devices' attributes chosen in the input</span></span></li><li><span class="tab"><span class="comment line"># </span></span></li><li><span class="tab"><span class="comment line"># Arguments</span></span></li><li><span class="tab"><span class="comment line">#   <strong>filter</strong>: </span></span></li><li><span class="tab"><span class="meta">getDeviceHistory</span>(<span class="meta">filter</span>: <a class="support type" href="historyinput.doc.html">HistoryInput</a>!): [<a class="support type" href="history.doc.html">History</a>] </span></li><li></li><li><span class="tab"><span class="comment line">#   Retrieves dashboard configuration by user. Returns the information if successful </span></span></li><li><span class="tab"><span class="comment line">#   or error message if it occurs.</span></span></li><li><span class="tab"><span class="comment line"># </span></span></li><li><span class="tab"><span class="comment line"># Arguments</span></span></li><li><span class="tab"><span class="comment line">#   <strong>user</strong>: </span></span></li><li><span class="tab"><span class="comment line">#   <strong>tenant</strong>: </span></span></li><li><span class="tab"><span class="meta">getConfig</span>(<span class="meta">user</span>: <a class="support type" href="string.doc.html">String</a>, <span class="meta">tenant</span>: <a class="support type" href="string.doc.html">String</a>!): <a class="support type" href="string.doc.html">String</a> </span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>
