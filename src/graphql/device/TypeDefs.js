@@ -27,9 +27,9 @@ type Device {
  }
 #Determines which page to show and how many items#
  input PageInput {
-    #set the page number to be accessed#  
+    #set the page number to be accessed (default 20) #
     number: Int
-    #set the number of elements to be shown in a page#
+    #set the number of elements to be shown in a page (default 1) #
     size: Int
  }
   
@@ -51,7 +51,7 @@ type Device {
     #device selected#
     deviceID: String!
     #attributes which readings are to be retrieved#
-    attrs: [String]
+    attrs: [String]!
  }
  #Historical reading from an attribute#
  type HistoryAttr {
