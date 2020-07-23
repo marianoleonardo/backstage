@@ -60,6 +60,7 @@ out
 # editor
 .vscode
 .idea
+build.sh
 
 # SQLITE
 **/*.sqlite

@@ -18,7 +18,7 @@ type Device {
     label: String!
     valueType: ValueType!
  }
-  
+
 #A paginated list of Devices.#
  type DeviceListPage {
     totalPages: Int!
@@ -32,7 +32,7 @@ type Device {
     #set the number of elements to be shown in a page (default 1) #
     size: Int
  }
-  
+
  #Return only devices that are named accordingly (prefix or suffix match)#
  input FilterDeviceInput {
     label: String
@@ -43,15 +43,18 @@ type Device {
     devices: [HistoryDeviceInput]!
     dateFrom: String
     dateTo: String
+    #operationType corresponds to 0 (the last N histories, Number of most current values), 1 (minutes, the last N minutes), 2 (hours, the last N hours), 3 (days, the last N days), 4 (months, the last N months)
+    operationType: Int
+    #lastN will be used to obtain the values from the lastN of most current values, minutes, hours, days and months according to option operationType
     lastN: Int
  }
- 
+
  #Parameters to identify from which device and which attributes to retrieve historical data from#
  input HistoryDeviceInput{
     #device selected#
     deviceID: String!
     #attributes which readings are to be retrieved#
-    attrs: [String]!
+    attrs: [String]
  }
  #Historical reading from an attribute#
  type HistoryAttr {

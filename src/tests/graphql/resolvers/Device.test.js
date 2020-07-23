@@ -9,7 +9,7 @@ afterEach(() => {
 
 it('should return a device', () => {
   const root = {};
-  const params = { deviceId: '10cf' };
+  const params = {deviceId: '10cf'};
   const context = {};
 
   axios.mockImplementationOnce(() => Promise.resolve({
@@ -758,4 +758,146 @@ it('should return history from 1 device', async () => {
       timestamp: '2018-03-22T13:46:21.535000Z',
     }],
   }]);
+});
+
+it('Consult the history for the last 3 records (dashboard)', async () => {
+  jest.mock('axios');
+
+  const historyData = {
+    0: {
+      data: [{
+        device_id: '0998',
+        ts: '2018-03-22T13:47:07.050000Z',
+        value: 10.6,
+        attr: 'temperature',
+      },
+        {
+          device_id: '0998',
+          ts: '2018-03-22T13:46:42.455000Z',
+          value: 15.6,
+          attr: 'temperature',
+        },
+        {
+          device_id: '0998',
+          ts: '2018-03-22T13:46:21.535000Z',
+          value: 36.5,
+          attr: 'temperature',
+        }],
+    },
+    1: {
+      data: [{
+        attr: 'hue',
+        value: '#4785FF',
+        device_id: '8aa0f9',
+        ts: '2018-03-22T13:47:07.408000Z',
+        metadata: {},
+      },
+        {
+          attr: 'hue',
+          value: '#4785FF',
+          device_id: '8aa0f9',
+          ts: '2020-05-06T16:25:13.366000Z',
+          metadata: {},
+        },
+        {
+          attr: 'hue',
+          value: '#414DE8',
+          device_id: '8aa0f9',
+          ts: '2020-05-06T16:25:06.697000Z',
+          metadata: {},
+        }],
+    },
+    2: [{
+      attr: 'intensity',
+      value: 5,
+      device_id: '8aa0f9',
+      ts: '2020-05-06T16:48:50.408000Z',
+      metadata: {},
+    }],
+  };
+
+  axios.mockResolvedValue('default value')
+    .mockResolvedValueOnce(historyData[0])
+    .mockResolvedValueOnce(historyData[1])
+    .mockResolvedValueOnce(historyData[2])
+
+  const params = {
+    filter: {
+      devices: [{deviceID: '0998', attrs: ['temperature']}, {deviceID: '8aa0f9', attrs: ['hue']}], operationType: 0, lastN: 3,
+    },
+  };
+
+  const result = await Resolvers.Query.getDeviceHistoryForDashboard({}, params, {});
+  expect(result).toEqual('[{"timestamp":"2018-03-22T13:47:07","0998temperature":10.6,"8aa0f9hue":"#4785FF"},{"timestamp":"2018-03-22T13:46:42","0998temperature":15.6,"8aa0f9hue":null},{"timestamp":"2018-03-22T13:46:21","0998temperature":36.5,"8aa0f9hue":null},{"timestamp":"2020-05-06T16:25:13","0998temperature":null,"8aa0f9hue":"#4785FF"},{"timestamp":"2020-05-06T16:25:06","0998temperature":null,"8aa0f9hue":"#414DE8"}]')
+});
+
+it('Consult the history by time period (dashboard)', async () => {
+  jest.mock('axios');
+
+  const historyData = {
+    0: {
+      data: [{
+        device_id: '0998',
+        ts: '2020-07-20T16:47:07.050000Z',
+        value: 10.6,
+        attr: 'temperature',
+      },
+        {
+          device_id: '0998',
+          ts: '2020-07-20T15:46:42.455000Z',
+          value: 15.6,
+          attr: 'temperature',
+        },
+        {
+          device_id: '0998',
+          ts: '2020-07-20T15:46:21.535000Z',
+          value: 36.5,
+          attr: 'temperature',
+        }],
+    },
+    1: {
+      data: [{
+        attr: 'hue',
+        value: '#4785FF',
+        device_id: '8aa0f9',
+        ts: '2020-07-20T16:47:07.408000Z',
+        metadata: {},
+      },
+        {
+          attr: 'hue',
+          value: '#4785FF',
+          device_id: '8aa0f9',
+          ts: '2020-07-20T16:25:13.366000Z',
+          metadata: {},
+        },
+        {
+          attr: 'hue',
+          value: '#414DE8',
+          device_id: '8aa0f9',
+          ts: '2020-07-20T13:25:06.697000Z',
+          metadata: {},
+        }],
+    },
+    2: [{
+      attr: 'intensity',
+      value: 5,
+      device_id: '8aa0f9',
+      ts: '2020-07-20T16:48:50.408000Z',
+      metadata: {},
+    }],
+  };
+
+  axios.mockResolvedValue('default value')
+    .mockResolvedValueOnce(historyData[0])
+    .mockResolvedValueOnce(historyData[1])
+    .mockResolvedValueOnce(historyData[2])
+
+  const params = {
+    filter: {
+      devices: [{deviceID: '0998', attrs: ['temperature']}, {deviceID: '8aa0f9', attrs: ['hue']}], dateFrom: "2020-07-20T15:00:00.000z", dateTo: "2020-07-20T17:00:00.000z",
+    },
+  };
+
+  const result = await Resolvers.Query.getDeviceHistoryForDashboard({}, params, {});
+  expect(result).toEqual('[{"timestamp":"2020-07-20T16:47:07","0998temperature":10.6,"8aa0f9hue":"#4785FF"},{"timestamp":"2020-07-20T15:46:42","0998temperature":15.6,"8aa0f9hue":null},{"timestamp":"2020-07-20T15:46:21","0998temperature":36.5,"8aa0f9hue":null},{"timestamp":"2020-07-20T16:25:13","0998temperature":null,"8aa0f9hue":"#4785FF"},{"timestamp":"2020-07-20T13:25:06","0998temperature":null,"8aa0f9hue":"#414DE8"}]')
 });
