@@ -111,6 +111,8 @@ const Resolvers = {
           }
         }
 
+        requestParameters.sortBy = params.sortBy || 'label';
+
         let requestString = '/device?';
         const keys = Object.keys(requestParameters);
         const last = keys[keys.length - 1];
