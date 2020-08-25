@@ -325,7 +325,7 @@ const Resolvers = {
           const {attr, device_id, value, ts} = data;
           history.push({
             [`${device_id}${attr}`]: value,
-            timestamp: ts.substring(0, ts.length - 8),
+            timestamp: ts.length > 20 ? `${ts.substring(0, ts.length - (ts.length - 19))}Z` : ts,
           });
         });
 
