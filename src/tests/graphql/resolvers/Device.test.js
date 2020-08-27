@@ -828,7 +828,7 @@ it('Consult the history for the last 3 records (dashboard)', async () => {
   };
 
   const result = await Resolvers.Query.getDeviceHistoryForDashboard({}, params, {});
-  expect(result).toEqual('[{"timestamp":"2018-03-22T13:47:07Z","0998temperature":10.6,"8aa0f9hue":"#4785FF"},{"timestamp":"2018-03-22T13:46:42Z","0998temperature":15.6,"8aa0f9hue":null},{"timestamp":"2018-03-22T13:46:21Z","0998temperature":36.5,"8aa0f9hue":null},{"timestamp":"2020-05-06T16:25:13Z","0998temperature":null,"8aa0f9hue":"#4785FF"},{"timestamp":"2020-05-06T16:25:06Z","0998temperature":null,"8aa0f9hue":"#414DE8"}]')
+  expect(result).toEqual('[{"timestamp":"2020-05-06T16:25:13Z","0998temperature":null,"8aa0f9hue":"#4785FF"},{"timestamp":"2020-05-06T16:25:06Z","0998temperature":null,"8aa0f9hue":"#414DE8"},{"timestamp":"2018-03-22T13:47:07Z","0998temperature":10.6,"8aa0f9hue":"#4785FF"},{"timestamp":"2018-03-22T13:46:42Z","0998temperature":15.6,"8aa0f9hue":null},{"timestamp":"2018-03-22T13:46:21Z","0998temperature":36.5,"8aa0f9hue":null}]')
 });
 
 it('Consult the history by time period (dashboard)', async () => {
@@ -899,5 +899,5 @@ it('Consult the history by time period (dashboard)', async () => {
   };
 
   const result = await Resolvers.Query.getDeviceHistoryForDashboard({}, params, {});
-  expect(result).toEqual('[{"timestamp":"2020-07-20T16:47:07Z","0998temperature":10.6,"8aa0f9hue":"#4785FF"},{"timestamp":"2020-07-20T15:46:42Z","0998temperature":15.6,"8aa0f9hue":null},{"timestamp":"2020-07-20T15:46:21Z","0998temperature":36.5,"8aa0f9hue":null},{"timestamp":"2020-07-20T16:25:13Z","0998temperature":null,"8aa0f9hue":"#4785FF"},{"timestamp":"2020-07-20T13:25:06Z","0998temperature":null,"8aa0f9hue":"#414DE8"}]')
+  expect(result).toEqual('[{"timestamp":"2020-07-20T16:47:07Z","0998temperature":10.6,"8aa0f9hue":"#4785FF"},{"timestamp":"2020-07-20T16:25:13Z","0998temperature":null,"8aa0f9hue":"#4785FF"},{"timestamp":"2020-07-20T15:46:42Z","0998temperature":15.6,"8aa0f9hue":null},{"timestamp":"2020-07-20T15:46:21Z","0998temperature":36.5,"8aa0f9hue":null},{"timestamp":"2020-07-20T13:25:06Z","0998temperature":null,"8aa0f9hue":"#414DE8"}]')
 });

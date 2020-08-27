@@ -263,6 +263,7 @@ const Resolvers = {
       context) {
       setToken(context.token);
       const history = [];
+      let sortedHistory = [];
       const historyPromiseArray = [];
       const fetchedData = [];
       let attributesKey = {['timestamp']: null};
@@ -329,11 +330,16 @@ const Resolvers = {
           });
         });
 
+        sortedHistory = _.orderBy(history, (o) => {
+          return moment(o.timestamp).format('YYYYMMDDHHmmss');
+        }, ['desc']);
+
+
       } catch (error) {
         LOG.error(error.stack || error);
         throw error;
       }
-      return JSON.stringify(reduceList(convertList(history), attributesKey));
+      return JSON.stringify(reduceList(convertList(sortedHistory), attributesKey));
     },
   },
 };
