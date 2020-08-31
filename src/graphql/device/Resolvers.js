@@ -12,16 +12,13 @@ const setToken = ((token) => {
 });
 const optionsAxios = ((method, url) => UTIL.optionsAxios(method, url, paramsAxios.token));
 
-const reduceList = (prop, keysList) => {
+const reduceList = (prop) => {
   const array = [];
   Object.keys(prop).forEach(listKey => {
     array.push(
       prop[listKey].reduce((acc, fItem) => {
         const obj = {...fItem};
         Object.keys(obj).forEach(item => {
-          if (_.isEmpty(acc)) {
-            acc = Object.assign({}, keysList);
-          }
           acc[item] = obj[item];
         });
         return acc;
@@ -262,12 +259,11 @@ const Resolvers = {
       {filter: {dateFrom = '', dateTo = '', lastN = '', operationType = 0, devices = []}},
       context) {
       setToken(context.token);
-      const history = [];
       let sortedHistory = [];
+      let queryStringParams = '';
+      const history = [];
       const historyPromiseArray = [];
       const fetchedData = [];
-      let attributesKey = {['timestamp']: null};
-      let queryStringParams = '';
 
       switch (operationType) {
         case 0:
@@ -295,13 +291,11 @@ const Resolvers = {
           queryStringParams = `${dateFrom && `&dateFrom=${dateFrom}`}${dateTo && `&dateTo=${dateTo}`}`;
           break
       }
-      //console.log(queryStringParams);
 
       try {
         devices.forEach((device) => {
           if (device.attrs) {
             device.attrs.forEach((attribute) => {
-              attributesKey[[`${device.deviceID}${attribute}`]] = null;
               const requestString = `/history/device/${device.deviceID}/history?attr=${attribute}${queryStringParams ? `${queryStringParams}` : ''}`;
               const promiseHistory = axios(optionsAxios(UTIL.GET, requestString))
                 .catch(() => Promise.resolve(null));
@@ -325,21 +319,21 @@ const Resolvers = {
         fetchedData.forEach((data) => {
           const {attr, device_id, value, ts} = data;
           history.push({
-            [`${device_id}${attr}`]: value,
+            [`${device_id}${attr}`]: isNaN(value) ? value : parseFloat(value),
             timestamp: ts.length > 20 ? `${ts.substring(0, ts.length - (ts.length - 19))}Z` : ts,
           });
         });
 
         sortedHistory = _.orderBy(history, (o) => {
           return moment(o.timestamp).format('YYYYMMDDHHmmss');
-        }, ['desc']);
+        }, ['asc']);
 
 
       } catch (error) {
         LOG.error(error.stack || error);
         throw error;
       }
-      return JSON.stringify(reduceList(convertList(sortedHistory), attributesKey));
+      return JSON.stringify(reduceList(convertList(sortedHistory)));
     },
   },
 };
