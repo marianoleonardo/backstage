@@ -1,12 +1,13 @@
 {
   "name": "gui-helper",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "This repository is to get together all services can help GUI",
   "main": "index.js",
   "scripts": {
     "test": "jest src/tests/.*.test.js  --coverage --runInBand --collectCoverage --detectOpenHandles && codecov",
     "dev": "node src/databaseCheck.js && nodemon src/index.js",
-    "start": "node databaseCheck.js && node index.js"
+    "start": "node databaseCheck.js && node index.js",
+    "check-licenses": "apache2-license-checker"
   },
   "repository": {
     "type": "git",
@@ -16,8 +17,15 @@
     "Elias Reis <efreis@cpqd.com.br>",
     "Julia M. @juliamourac"
   ],
-  "license": "GPL-3.0",
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
   "dependencies": {
+    "@bbc/apache2-license-checker": "^1.1.4",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
