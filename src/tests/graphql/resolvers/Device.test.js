@@ -106,7 +106,6 @@ it('should return a device', () => {
   });
 });
 
-
 it('should get a list of devices', () => {
   axios.mockResolvedValue({
     data: {
@@ -257,12 +256,16 @@ it('should get a list of devices', () => {
           {
             attrs: [
               {
+                "isDynamic": true,
                 label: 'dina2',
                 valueType: 'NUMBER',
+                "staticValue": "",
               },
               {
+                "isDynamic": true,
                 label: 'dinbool',
                 valueType: 'BOOLEAN',
+                "staticValue": "",
               },
             ],
             id: '1b32ee',
@@ -271,8 +274,10 @@ it('should get a list of devices', () => {
           {
             attrs: [
               {
+                "isDynamic": true,
                 label: 'din',
                 valueType: 'STRING',
+                "staticValue": "",
               },
             ],
             id: '457be',
@@ -281,12 +286,16 @@ it('should get a list of devices', () => {
           {
             attrs: [
               {
+                "isDynamic": true,
                 label: 'dina2',
                 valueType: 'NUMBER',
+                "staticValue": "",
               },
               {
+                "isDynamic": true,
                 label: 'dinbool',
                 valueType: 'BOOLEAN',
+                "staticValue": "",
               },
             ],
             id: 'd16fe3',
@@ -297,467 +306,6 @@ it('should get a list of devices', () => {
       },
     );
   });
-});
-
-it('should return a list of history entries', async () => {
-  jest.mock('axios');
-
-  const root = {};
-  const params = {
-    filter: {
-      devices: [{ deviceID: '0998', attrs: ['temperature'] }],
-      lastN: 3,
-    },
-  };
-
-  const devReading = {
-    data: [{
-      device_id: '0998',
-      ts: '2018-03-22T13:47:07.050000Z',
-      value: 10.6,
-      attr: 'temperature',
-    },
-    {
-      device_id: '0998',
-      ts: '2018-03-22T13:46:42.455000Z',
-      value: 15.6,
-      attr: 'temperature',
-    },
-    {
-      device_id: '0998',
-      ts: '2018-03-22T13:46:21.535000Z',
-      value: 36.5,
-      attr: 'temperature',
-    }],
-  };
-  const dev = {
-    data: {
-      attrs: {
-        1: [
-          {
-            created: '2020-03-09T17:10:34.364406+00:00',
-            id: 1,
-            is_static_overridden: false,
-            label: 'temperature',
-            metadata: [
-              {
-                created: '2020-03-09T17:10:34.369905+00:00',
-                id: 2,
-                is_static_overridden: false,
-                label: 'protocol',
-                static_value: 'mqtt',
-                type: 'protocol',
-                updated: null,
-                value_type: 'string',
-              },
-            ],
-            static_value: '',
-            template_id: '1',
-            type: 'dynamic',
-            value_type: 'float',
-          },
-        ],
-      },
-      created: '2020-03-17T14:33:43.176756+00:00',
-      id: '0998',
-      label: 'Thermometer',
-      templates: [
-        1,
-      ],
-    },
-  };
-
-  axios.mockResolvedValue('default value')
-    .mockResolvedValueOnce(devReading)
-    .mockResolvedValueOnce(dev);
-
-  const expectedResult = [{
-    deviceID: '0998',
-    label: 'Thermometer',
-    attrs: [{
-      label: 'temperature',
-      valueType: 'NUMBER',
-      value: 10.6,
-      timestamp: '2018-03-22T13:47:07.050000Z',
-    },
-    {
-      label: 'temperature',
-      valueType: 'NUMBER',
-      value: 15.6,
-      timestamp: '2018-03-22T13:46:42.455000Z',
-    },
-    {
-      label: 'temperature',
-      valueType: 'NUMBER',
-      value: 36.5,
-      timestamp: '2018-03-22T13:46:21.535000Z',
-    }],
-  }];
-
-  const result = await Resolvers.Query.getDeviceHistory(root, params, {});
-  expect(result).toEqual(expectedResult);
-});
-
-it('should return empty array', async () => {
-  jest.mock('axios');
-
-  const root = {};
-  const params = {
-    filter: {
-      devices: [{ deviceID: '0998', attrs: ['temperature'] }],
-      lastN: 3,
-    },
-  };
-
-  const devReading = {
-    data: [{
-      device_id: '0998',
-      ts: '2018-03-22T13:47:07.050000Z',
-      value: 10.6,
-      attr: 'temperature',
-    },
-    {
-      device_id: '0998',
-      ts: '2018-03-22T13:46:42.455000Z',
-      value: 15.6,
-      attr: 'temperature',
-    },
-    {
-      device_id: '0998',
-      ts: '2018-03-22T13:46:21.535000Z',
-      value: 36.5,
-      attr: 'temperature',
-    }],
-  };
-
-  axios.mockResolvedValue(null)
-    .mockResolvedValueOnce(null)
-    .mockResolvedValueOnce(devReading);
-
-  const result = await Resolvers.Query.getDeviceHistory(root, params, {});
-  expect(result).toEqual([]);
-});
-
-it('should return history from 2 devices', async () => {
-  jest.mock('axios');
-
-  const devices = [{
-    data: {
-      attrs: {
-        1: [
-          {
-            created: '2020-03-09T17:10:34.364406+00:00',
-            id: 1,
-            is_static_overridden: false,
-            label: 'temperature',
-            metadata: [
-              {
-                created: '2020-03-09T17:10:34.369905+00:00',
-                id: 2,
-                is_static_overridden: false,
-                label: 'protocol',
-                static_value: 'mqtt',
-                type: 'protocol',
-                updated: null,
-                value_type: 'string',
-              },
-            ],
-            static_value: '',
-            template_id: '1',
-            type: 'dynamic',
-            value_type: 'float',
-          },
-        ],
-      },
-      created: '2020-03-17T14:33:43.176756+00:00',
-      id: '0998',
-      label: 'Thermometer',
-      templates: [
-        1,
-      ],
-    },
-  }, {
-    data: {
-      attrs: {
-        1: [
-          {
-            created: '2020-05-06T16:19:32.247307+00:00',
-            id: 1,
-            is_static_overridden: false,
-            label: 'hue',
-            static_value: '',
-            template_id: '1',
-            type: 'dynamic',
-            value_type: 'string',
-          },
-          {
-            created: '2020-05-06T16:19:32.397514+00:00',
-            id: 2,
-            is_static_overridden: false,
-            label: 'intensity',
-            static_value: '',
-            template_id: '1',
-            type: 'dynamic',
-            value_type: 'integer',
-          },
-        ],
-      },
-      created: '2020-05-06T16:19:46.185424+00:00',
-      id: '8aa0f9',
-      label: 'Living_Room',
-      templates: [
-        1,
-      ],
-    },
-  }];
-
-  const historyData = {
-    0: {
-      data: [{
-        device_id: '0998',
-        ts: '2018-03-22T13:47:07.050000Z',
-        value: 10.6,
-        attr: 'temperature',
-      },
-      {
-        device_id: '0998',
-        ts: '2018-03-22T13:46:42.455000Z',
-        value: 15.6,
-        attr: 'temperature',
-      },
-      {
-        device_id: '0998',
-        ts: '2018-03-22T13:46:21.535000Z',
-        value: 36.5,
-        attr: 'temperature',
-      }],
-    },
-    1: {
-      data: [{
-        attr: 'hue',
-        value: '#4785FF',
-        device_id: '8aa0f9',
-        ts: '2020-05-06T16:48:50.408000Z',
-        metadata: {},
-      },
-      {
-        attr: 'hue',
-        value: '#4785FF',
-        device_id: '8aa0f9',
-        ts: '2020-05-06T16:25:13.366000Z',
-        metadata: {},
-      },
-      {
-        attr: 'hue',
-        value: '#414DE8',
-        device_id: '8aa0f9',
-        ts: '2020-05-06T16:25:06.697000Z',
-        metadata: {},
-      }],
-    },
-    2: [{
-      attr: 'intensity',
-      value: 5,
-      device_id: '8aa0f9',
-      ts: '2020-05-06T16:48:50.408000Z',
-      metadata: {},
-    }],
-  };
-
-  axios.mockResolvedValue('default value')
-    .mockResolvedValueOnce(historyData[0])
-    .mockResolvedValueOnce(devices[0])
-    .mockResolvedValueOnce(historyData[1])
-    .mockResolvedValueOnce(historyData[2])
-    .mockResolvedValueOnce(devices[1]);
-
-  const params = {
-    filter: {
-      devices: [{ deviceID: '0998', attrs: ['temperature'] }, { deviceID: '8aa0f9', attrs: ['hue', 'intensity'] }],
-      lastN: 3,
-    },
-  };
-
-  const result = await Resolvers.Query.getDeviceHistory({}, params, {});
-  expect(result).toEqual([{
-    attrs: [
-      {
-        label: 'temperature',
-        timestamp: '2018-03-22T13:47:07.050000Z',
-        value: 10.6,
-        valueType: 'NUMBER',
-      },
-      {
-        label: 'temperature',
-        timestamp: '2018-03-22T13:46:42.455000Z',
-        value: 15.6,
-        valueType: 'NUMBER',
-      },
-      {
-        label: 'temperature',
-        timestamp: '2018-03-22T13:46:21.535000Z',
-        value: 36.5,
-        valueType: 'NUMBER',
-      },
-    ],
-    deviceID: '0998',
-    label: 'Thermometer',
-  },
-  {
-    attrs: [
-      {
-        label: 'hue',
-        timestamp: '2020-05-06T16:48:50.408000Z',
-        value: '#4785FF',
-        valueType: 'STRING',
-      },
-      {
-        label: 'hue',
-        timestamp: '2020-05-06T16:25:13.366000Z',
-        value: '#4785FF',
-        valueType: 'STRING',
-      },
-      {
-        label: 'hue',
-        timestamp: '2020-05-06T16:25:06.697000Z',
-        value: '#414DE8',
-        valueType: 'STRING',
-      },
-    ],
-    deviceID: '8aa0f9',
-    label: 'Living_Room',
-  }]);
-});
-
-it('should return history from 1 device', async () => {
-  jest.mock('axios');
-
-  const device = {
-    data: {
-      attrs: {
-        1: [
-          {
-            created: '2020-03-09T17:10:34.364406+00:00',
-            id: 1,
-            is_static_overridden: false,
-            label: 'temperature',
-            metadata: [
-              {
-                created: '2020-03-09T17:10:34.369905+00:00',
-                id: 2,
-                is_static_overridden: false,
-                label: 'protocol',
-                static_value: 'mqtt',
-                type: 'protocol',
-                updated: null,
-                value_type: 'string',
-              },
-            ],
-            static_value: '',
-            template_id: '1',
-            type: 'dynamic',
-            value_type: 'float',
-          },
-        ],
-      },
-      created: '2020-03-17T14:33:43.176756+00:00',
-      id: '0998',
-      label: 'Thermometer',
-      templates: [
-        1,
-      ],
-    },
-  };
-
-  const historyData = {
-    0: {
-      data: [{
-        device_id: '0998',
-        ts: '2018-03-22T13:47:07.050000Z',
-        value: 10.6,
-        attr: 'temperature',
-      },
-      {
-        device_id: '0998',
-        ts: '2018-03-22T13:46:42.455000Z',
-        value: 15.6,
-        attr: 'temperature',
-      },
-      {
-        device_id: '0998',
-        ts: '2018-03-22T13:46:21.535000Z',
-        value: 36.5,
-        attr: 'temperature',
-      }],
-    },
-    1: {
-      data: [{
-        attr: 'hue',
-        value: '#4785FF',
-        device_id: '8aa0f9',
-        ts: '2020-05-06T16:48:50.408000Z',
-        metadata: {},
-      },
-      {
-        attr: 'hue',
-        value: '#4785FF',
-        device_id: '8aa0f9',
-        ts: '2020-05-06T16:25:13.366000Z',
-        metadata: {},
-      },
-      {
-        attr: 'hue',
-        value: '#414DE8',
-        device_id: '8aa0f9',
-        ts: '2020-05-06T16:25:06.697000Z',
-        metadata: {},
-      }],
-    },
-    2: [{
-      attr: 'intensity',
-      value: 5,
-      device_id: '8aa0f9',
-      ts: '2020-05-06T16:48:50.408000Z',
-      metadata: {},
-    }],
-  };
-
-  axios.mockResolvedValue(null)
-    .mockResolvedValueOnce(historyData[0])
-    .mockResolvedValueOnce(device)
-    .mockResolvedValueOnce(historyData[1])
-    .mockResolvedValueOnce(historyData[2]);
-
-  const params = {
-    filter: {
-      devices: [{ deviceID: '0998', attrs: ['temperature'] }, { deviceID: '8aa0f9', attrs: ['hue', 'intensity'] }],
-      lastN: 3,
-    },
-  };
-
-  const result = await Resolvers.Query.getDeviceHistory({}, params, {});
-  expect(result).toEqual([{
-    deviceID: '0998',
-    label: 'Thermometer',
-    attrs: [{
-      label: 'temperature',
-      valueType: 'NUMBER',
-      value: 10.6,
-      timestamp: '2018-03-22T13:47:07.050000Z',
-    },
-    {
-      label: 'temperature',
-      valueType: 'NUMBER',
-      value: 15.6,
-      timestamp: '2018-03-22T13:46:42.455000Z',
-    },
-    {
-      label: 'temperature',
-      valueType: 'NUMBER',
-      value: 36.5,
-      timestamp: '2018-03-22T13:46:21.535000Z',
-    }],
-  }]);
 });
 
 it('Consult the history for the last 3 records (dashboard)', async () => {
@@ -823,7 +371,7 @@ it('Consult the history for the last 3 records (dashboard)', async () => {
 
   const params = {
     filter: {
-      devices: [{deviceID: '0998', attrs: ['temperature']}, {deviceID: '8aa0f9', attrs: ['hue']}], operationType: 0, lastN: 3,
+      devices: [{deviceID: '0998', dynamicAttrs: ['temperature']}, {deviceID: '8aa0f9', dynamicAttrs: ['hue']}], operationType: 0, lastN: 3,
     },
   };
 
@@ -894,7 +442,7 @@ it('Consult the history by time period (dashboard)', async () => {
 
   const params = {
     filter: {
-      devices: [{deviceID: '0998', attrs: ['temperature']}, {deviceID: '8aa0f9', attrs: ['hue']}], dateFrom: "2020-07-20T15:00:00.000z", dateTo: "2020-07-20T17:00:00.000z",
+      devices: [{deviceID: '0998', dynamicAttrs: ['temperature']}, {deviceID: '8aa0f9', dynamicAttrs: ['hue']}], dateFrom: "2020-07-20T15:00:00.000z", dateTo: "2020-07-20T17:00:00.000z",
     },
   };
 
