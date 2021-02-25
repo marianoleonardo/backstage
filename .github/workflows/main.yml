@@ -25,12 +25,19 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: npm ci, build and test
+    - name: npm install, build, test and check licenses
       run: |
         npm install
         npm run build --if-present
         npm test
         npm run check-licenses
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        file: coverage/lcov.info # Created when 'npm test' is executed
+        flags: Backstage # Flags allow you to isolate coverage reports for different tests
+        name: backstage # Custom name for the upload
 
   docker-hub:
     needs: npm-build
@@ -46,6 +53,7 @@ jobs:
         export OWNER=$(echo ${{ github.repository }} | cut -f1 -d"/")
         echo Current Owner is $OWNER
         echo ::set-output name=owner::$OWNER
+
     - name: Checkout
       uses: actions/checkout@v1
 
