@@ -65,7 +65,7 @@ type Device {
     #template selected#
     templateID: String!
     #attributes which readings are to be retrieved#
-    attrs: [String]
+    dynamicAttrs: [String]
     #static attributes which readings are to be retrieved#
     staticAttrs: [String]
  }
